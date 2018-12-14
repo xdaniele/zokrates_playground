@@ -1,0 +1,20 @@
+import "LIBSNARK/sha256packed"
+
+
+def main(private field a,private field b,private field c,private field d,field index) -> (field):
+    field[2] u0 = [188572105759659083980383292954228349097, 194659794334285790560722302780935147804]
+    field[2] u1 = [240986383724782647847259165173774860223, 169301426990792342954726555289492491480]
+    field[2] u2 = [325644779519784935188637146176233814669, 20655027315393777642123500121341753195]
+
+
+    field[2] u =[0,0]
+    for field i in 0..2 do
+        u[i] = if index == 0 then u0[i] else u[i] fi
+        u[i] = if index == 1 then u1[i] else u[i] fi
+        u[i] = if index == 2 then u2[i] else u[i] fi
+    endfor
+    h0,h1 = sha256packed(a,b,c,d)
+    field firstHalf = if h0 == u[0] then 1 else 0 fi
+    field secondHalf = if h1 == u[1] then 1 else 0 fi
+    field valid = if firstHalf + secondHalf == 2 then 1 else 0 fi
+    return valid

@@ -1,0 +1,8 @@
+import "LIBSNARK/sha256packed"
+
+
+def main(private field a,private field b,private field c,private field d) -> (field):
+    h0,h1 = sha256packed(a,b,c,d)
+    h0 == 292402246221815097659208779929037565130 
+    h1 == 283192780425660602496106067382986948046
+    return 1
